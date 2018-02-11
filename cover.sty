@@ -1,0 +1,108 @@
+% MIT License
+%
+% Copyright (c) 2017 Tatsuro YOKOTA
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in all
+% copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cover}[2017/11/20 v0.2 for cover of univ graduation thesis]
+
+%----------------------------------------
+\RequirePackage{ulem}
+
+\newif\if@B \@Bfalse
+\newif\if@M \@Mfalse
+
+\DeclareOption{B}{\@Btrue}
+\DeclareOption{M}{\@Mtrue}
+
+\ProcessOptions\relax
+
+\def\advisor#1{\gdef\@advisor{#1}}
+
+\def\institution#1{\gdef\@institution{#1}}
+\def\papertype#1{\gdef\@papertype{#1}}
+\def\majorfield#1{\gdef\@majorfield{#1}}
+
+\def\grade#1{\gdef\@grade{#1}}
+\def\studentno#1{\gdef\@studentno{#1}}
+
+\def\era#1{\gdef\@era{#1}}
+\def\erayear#1{\gdef\@erayear{#1}}
+\def\yearandmonth#1{\gdef\@yearandmonth{#1}}
+
+\def\keywords#1{\gdef\@keywords{#1}}
+
+\def\keywordsname{\textbf{Key Words : }}
+%
+
+\def\maketitle{\par
+\begingroup
+\def\@makefnmark{\hbox
+     to\z@{$\m@th^{\@thefnmark}$\hss}}%
+\if@twocolumn
+\twocolumn[\@maketitle]
+\else
+\global\@topnum\z@
+\@maketitle
+\fi
+\thispagestyle{empty}\@thanks
+\endgroup
+
+\let\maketitle\relax
+\let\@maketitle\relax
+\gdef\@keywords{}
+\let\keywords\relax
+\let\majorfield\relax\gdef\@majorfield{}
+\gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax}
+
+
+
+\def\@maketitle{
+\newpage\null
+\thispagestyle{empty}
+
+\begin{center}
+\vspace*{2truecm}
+{\Large \@era \@erayear 年度}
+\vspace{1truecm}
+
+{\Large \@institution}
+
+\vspace*{1truecm}
+
+{\Large \@papertype}
+
+\vspace*{2.4truecm}
+
+{\huge テーマ \baselineskip 1.5em 「\@title 」} \vfill
+
+\vspace*{6cm plus 2truecm minus 2truecm}
+
+%\underline{\LARGE 主専攻 \hspace{1truecm} \@majorfield }
+{\LARGE \@institution \@grade 年 \hspace{1truecm} No.\@studentno }
+
+\vspace*{1truecm}
+
+\underline{\Huge  \@author }
+
+\vspace*{5truemm}
+
+\end{center}
+}

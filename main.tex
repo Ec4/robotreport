@@ -1,0 +1,41 @@
+\documentclass[lualatex, a4paper, base=11pt, jafont=auto, ja=standard]{bxjsreport}
+
+\usepackage{subfiles}
+\usepackage{url}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{newtxtext, newtxmath}
+\usepackage{comment}
+\usepackage[B]{thesis}	% 外観調整用
+\usepackage[B]{cover}	% 表紙用
+
+\include{privacy}	% 公開用
+
+%% タイトル
+\title{移動ロボットの行動プログラミング}
+\papertype{ソフトウェアサイエンス実験B}
+\institution{情報科学類}
+\grade{3}
+\studentno{201500000}
+\author{\myname }
+\era{平成}
+\erayear{29}
+\yearandmonth{2018年2月}
+
+\begin{document}
+\maketitle
+\pagestyle{empty}
+\tableofcontents
+\newpage
+\pagestyle{plain}
+\setcounter{page}{1}
+
+\subfile{intro/intro.tex}
+%\subfile{basic/basic.tex}
+%\subfile{wall/wall.tex}
+\subfile{urg/urg.tex}
+%\subfile{pillar/pillar.tex}
+\subfile{guard/guard.tex}
+%\subfile{eval/eval.tex}
+\end{document}

@@ -1,0 +1,36 @@
+\documentclass[main]{subfiles}
+\begin{document}
+\chapter{実験全体を通して}
+\section{実験概要}
+この実験は測域センサを搭載したロボットの動作をプログラミングして、
+要求される仕様（環境・条件）を満たす動作をロボットに行わせることを目的とする。
+ロボットはYP-SpurによってPCと通信を行い、
+プログラムからはライブラリを通じてアクセスする。
+具体的なプログラミング・実行においては、
+YP-SpurがインストールされたLinuxマシンを用いてC言語で記述するプログラムから
+\textit{``ypspur.h''}に記述された関数を呼び出すことでこれを実現する。
+以下に実行環境を示す。
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+		PC & robozuki3 (ThinkPad X)  \\\hline
+		カーネル & Linux 4.4.0-71\\\hline
+		OS & Ubuntu13.10\\\hline
+		YP-Spur & \\\hline
+	\end{tabular}
+\end{table}
+
+\section{学んだこと}
+
+\section{謝辞}
+TAの方々には非常によくお世話になりました。
+\TAa さんからは課題に行き詰まったときに多くの助言をいただき
+設計に関する深い部分に関しても親身に評価・改善してくださりました。
+\TAb さんにはデバッグに協力していただいただけでなく、
+授業時間外にも実験について相談に乗っていただきました。
+ここに感謝の意を表します。
+
+
+\end{document}
