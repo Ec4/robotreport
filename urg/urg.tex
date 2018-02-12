@@ -38,22 +38,87 @@ PCとの通信にはSCIP2.0という通信プロトコルを利用する。
 	\begin{minipage}{0.5\hsize}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=8cm]{./trans.pdf}
+			\includegraphics[width=8cm]{img/trans.pdf}
 			\caption{FS座標系とGL座標系の関係}
 		\end{figure}
 	\end{minipage}
 \end{figure}
-% まず現在のロボットの傾き\textit{pos\_theta\_gl}を利用して座標を回転させる。
-% 座標の回転といっても同一平面の点の回転移動と同じであるから、
-% 以下のような行列計算で求めることができる。
-% 幾何的に考え。
-% 最後に現在地のGL座標(pos\_x\_gl, pos\_y\_gl)を取得したFS座標に加算することで平行移動
-% これはFS座標における点へのベクトルとGL座標におけるロボット中心へのベクトルの加算
-% を行うものであり、
+
+まず現在のロボットの傾き\textit{pos\_theta\_gl}を用いて物体の座標を回転させる。
+座標の回転といっても同一平面上の点の回転移動と同じであるから、
+以下のような行列計算で求めることができる。
+\[
+	\left(
+	\begin{array}{cc}
+		x \\
+		y
+	\end{array}
+	\right)
+	=
+	\left(
+	\begin{array}{cc}
+		cos(pos\_theta\_gl) & -sin(pos\_theta\_gl) \\
+		sin(pos\_theta\_gl) & cos(pos\_theta\_gl)
+	\end{array}
+	\right)
+	\left(
+	\begin{array}{c}
+		x\_fs \\
+		y\_fs
+	\end{array}
+	\right)
+\]
+
+上記の記述でロボットの傾き$\theta $が0のときと同じ座標系に移すことができたが、
+これでは原点がロボット中心になりマップを作ることができない。
+ここで現在地のGL座標(pos\_x\_gl, pos\_y\_gl)を加算する。
+これはGL座標の原点からFS座標の原点（ロボット中心）への単純な平行移動で実現される。
+先の行列計算に合わせて記述すると以下のようになる。
+\[
+	\left(
+	\begin{array}{cc}
+		x\_gl \\
+		y\_gl
+	\end{array}
+	\right)
+	=
+	\left(
+	\begin{array}{c}
+		pos\_x\_gl \\
+		pos\_y\_gl
+	\end{array}
+	\right)
+	+
+	\left(
+	\begin{array}{cc}
+		cos(pos\_theta\_gl) & -sin(pos\_theta\_gl) \\
+		sin(pos\_theta\_gl) & cos(pos\_theta\_gl)
+	\end{array}
+	\right)
+	\left(
+	\begin{array}{c}
+		x\_fs \\
+		y\_fs
+	\end{array}
+	\right)
+\]
+
+こうして得られる物体の座標はGL座標の原点を基準とした平面で唯一の座標である。
 
 \section{結果}
-ノイズの多さが目立つが正しくマッピングできている。
+実際にフリー状態のロボットを動かしてマッピングしてみる。
+
+ノイズが目立つが正しくマッピングできている。
 
 \section{考察}
+座標系の変換がセンサをより強力なツールに変えた。
+URGから送られるデータはロボットから
+壁（単に光を反射するもの）までのベクトルに過ぎないが、
+ロボットの位置情報を使った座標系の変換を行うことで、
+世界中の壁を記録することができる。
+
+第6章の最終課題では、これをさらに物体認識を行うツールへと強化する。
+これにより単なる壁の記録のみならず、
+同一物体を検出しオブジェクトとして記録できるようになる。
 
 \end{document}
