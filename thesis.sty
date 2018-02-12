@@ -49,7 +49,7 @@
 % from bxjsreport
 
 \def\@makechapterhead#1{%
-  \vspace*{0.1\Cvs}% 欧文は50pt		% 元は2\Cvsだった
+  \vspace*{\Cvs}% 欧文は50pt		% 元は2\Cvsだった
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
     \setlength\@tempdima{\linewidth}%
@@ -64,7 +64,7 @@
     \fi
 %    \interlinepenalty\@M
     \LARGE \headfont #1\par\nobreak
-    \vskip \Cvs}} % 欧文は40pt		% 元は3\Cvsだった
+    \vskip 2\Cvs}} % 欧文は40pt		% 元は3\Cvsだった
 
 \def\@makeschapterhead#1{%
   \vspace*{2\Cvs}% 欧文は50pt
