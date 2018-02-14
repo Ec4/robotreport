@@ -80,31 +80,81 @@
 同一物体判定アルゴリズムの解説を行うとレポートのページ制限を軽く超えてしまうので、
 詳しくは添付資料内の関数\textit{pigeonhole}を参照していただきたい。
 
-\subsection{ポールの探索}
-状態遷移図では\textit{Pole\_setup}に対応する。
+\subsection{ポールの探索（state == Pole\_setup）}
+まずオブジェクトの中で最も多く座標が取得されているものをポールの候補とする。
+ポール候補となったオブジェクトの任意の3点から円の方程式を計算する（関数\textit{p3\_to\_circle}参照）。
 
-ポールの探索段階では人や壁などのものが周りにないことを仮定している。
+求めた円の方程式の半径$r$が実際のポールの半径と矛盾しなければ、
+ポールの中心をLC座標系の原点に設定して変数\textit{state}を\textit{Patrol}に移行する。
+矛盾する場合間違ったオブジェクトを認識したと判断し、
+保存されているオブジェクトを全てリセットして最初からやり直す。
+
+ポールの探索段階では人や壁などのセンサに反応するポール以外の物体が周りにないことを仮定している。
 ただセンサは前方から左側のみを使用するので、
 前方もしくは左方にポールを見据える形であれば右方に物体があっても動作する。
 
-オブジェクトの中で
+\subsection{パトロール（state == Patrol）}
 
-全状態で唯一GL座標を基準に動作する。
-\subsection{パトロール}
-状態遷移図では\textit{Patrol}に対応する。
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=8.5cm]{img/guard_patrol.pdf}
+	\caption{パトロール中の動作チャートフロー}
+\end{figure}
 
-\subsection{不審者発見}
-状態遷移図では\textit{Alien\_found}に対応する。
+細かいループ等実装上の細かいポイントを詳細に記述するとあまりに巨大になるので
+説明上問題にならない程度に省略している。
+実際には本体のソースコードを読んでもらった方が良い。
 
-\subsection{不審者追従}
-状態遷移図では\textit{Alien\_chase}に対応する。
+特に重要な点としては、このプログラムでは\textit{Pole\_setup}以外の状態では
+LC座標を基準に動いているということだ。
+フローチャート内に書いた「\textit{Pole\_setup}の手法」はその通りなのだが、
+基準がGL座標からLC座標に変わっていること。
+また、ポール位置の座標を座標系の中で修正するのではなく、
+ポール位置から座標系を修正するという挙動が極めて重要である。
+あくまでポールの中心がLC座標の原点となるように設計した。
 
-\subsection{不審者逃走}
-状態遷移図では\textit{Alien\_lost}に対応する。
+\subsection{不審者発見（state == Alien\_found）}
+\textit{Patrol}で得たhumanの値を使ってロボットと不審者の間に割り込んでいく。
 
-戻ってくる。
+
+\subsection{不審者追従（state == Alien\_chase）}
+ロボットが不審者を見失うことなくポールと不審者の間に入ると
+不審者の追従が始まる。
+不審者を見失うまでの間、
+ロボットが前方に不審者を見据えた状態で数歩後ろをついて行く。
+
+\subsection{不審者逃走（state == Alien\_lost）}
+ロボットが不審者を見失ったと判断する条件は2つある。
+周りにオブジェクトが1つもなくなったときと、
+ポールとの距離が定数\textit{LOSTAREA}を超えた（現在設定はポールから2m離れた）ときだ。
+
+不審者を見失うと周回経路に戻り、ポールの周り50cmに入ると変数\textit{state}を\textit{Patrol}に移行する。
 
 \section{結果}
+不審者追従までは最終発表後に動作させることができたが、
+不審者逃走後は実装が間に合わず、ポールを不審者と誤認識してしまう。
+以下は動作中の様子例である。
+
+\begin{figure}[H]
+	\begin{minipage}{0.5\hsize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=4cm]{img/photo_pole1.jpg}
+			\caption{周回中のロボット}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.5\hsize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=4cm]{img/photo_pole2.jpg}
+			\caption{追跡中のロボット}
+		\end{figure}
+	\end{minipage}
+\end{figure}
+
 \section{考察}
+時間内に完成させられなかったのは悔しいが、
+これまでの課題で学んだことの集大成となる課題であり非常に楽しかった。
+特にセンサノイズ除去に力を入れたので添付資料を見て欲しい。
 
 \end{document}

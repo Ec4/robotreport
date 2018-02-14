@@ -32,8 +32,8 @@
 
 		具体的な処理を明確にするためにプログラムを設計する前に右のような図を描いた。
 		目的は、FS座標(Px, Py)で表現される赤い点をGL座標(glPx, glPy)に変換することだ。
-		図ではXやYの表示が逆転しているものもあるが、軸に関しては正しく表示しているので
-		パラメータの仮変数だと思って無視していただきたい。
+		右図においてXY軸が一般的な図からは90度ほど回転しているが、
+		直進するとX座標の値が増え、左に進むとY座標の値が増える仕様に合わせたためだ。
 	\end{minipage}
 	\begin{minipage}{0.5\hsize}
 		\begin{figure}[H]
@@ -107,6 +107,26 @@
 
 \section{結果}
 実際にフリー状態のロボットを動かしてマッピングしてみる。
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.2\hsize}
+		\includegraphics[width=3cm]{img/photo_28.jpg}
+		\caption{実際の場所A}
+	\end{minipage}
+	\begin{minipage}{0.28\hsize}
+		\includegraphics[width=3cm]{img/28.png}
+		\caption{作成したマップA}
+	\end{minipage}
+	\begin{minipage}{0.2\hsize}
+		\includegraphics[width=3cm]{img/photo_ga.jpg}
+		\caption{実際の場所B}
+	\end{minipage}
+	\begin{minipage}{0.29\hsize}
+		\includegraphics[width=3cm]{img/ma.png}
+		\caption{作成したマップB（y=6の壁は即席のもの）}
+	\end{minipage}
+\end{figure}
 
 ノイズが目立つが正しくマッピングできている。
 

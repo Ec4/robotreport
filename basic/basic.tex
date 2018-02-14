@@ -78,17 +78,50 @@
 これは講義資料「第3回 測域センサの使い方」の課題です。
 
 \section{課題概要}
+ロボットを直進させ、前方1ｍ以内に障害物を見つけたら停止する。
+
 \section{解法}
+センサから前方正面の壁との距離を取得し、
+もし1m以下であれば速度を0に設定する。
+ただし、センサのスキャンデータ\textit{scan->data}は単位がmmであることに注意し、
+1mのときは1000mm以下と指示する必要がある。
 
 \section{結果}
+\usetikzlibrary{patterns}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{img/wl50cm.png}
-	\caption{1m先に壁を見つけて停止するまでのオドメトリ}
+	\begin{minipage}{0.3\hsize}
+		\begin{figure}[H]
+			\centering
+			\begin{tikzpicture}[scale=0.5]
+				\filldraw[fill=blue!10] (0,0) -- (330:4) arc (330:360:4) arc (0:210:4) --cycle;
+				\draw [thick] (-1,-1) rectangle (1,0);
+				\draw [pattern=bricks] (-5,2) rectangle (5,4);
+				\draw [dashed,very thick,->] (0,-4.5) -- (0,-1.5);
+				\draw (-1,-6) rectangle (1,-5);
+				\fill [blue] (0,0) circle [x radius=0.1, y radius=0.1];
+			\end{tikzpicture}
+			\caption{センサ視点}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.3\hsize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=4cm]{img/photo_stop.jpg}
+			\caption{実験の様子}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.3\hsize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=4cm]{img/stop1m.png}
+			\caption{オドメトリ}
+		\end{figure}
+	\end{minipage}
 \end{figure}
-小刻みに調整が働いて壁と並行する線上を走行できていることがわかる。
 
 \section{考察}
-
+条件を切り分ける必要がなく課題としては単純だったが、
+単位に注意する良いきっかけになった。
 
 \end{document}

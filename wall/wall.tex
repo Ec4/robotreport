@@ -11,7 +11,6 @@
 第3回と同様に壁を左方50cmに見て走行するように設計を行った。
 また終了条件の制約もなかったので、壁の端まで行ったら回転して反対側の壁を走行するような
 無限ループを基本とする設計を行っている。
-% 中間課題2「柱に沿って走行」の条件もプログラムを書き換えることなく満たすことができる。
 
 \section{解法}
 資料のヒントにはセンサで読み取ったある2点の距離から傾きや位置を計算する手法が示されていたので、
@@ -53,20 +52,63 @@
 \begin{figure}[H]
 	\begin{minipage}{0.5\hsize}
 		\setlength{\parindent}{1\Cwd}
-		もやし
+		左前方を見るというアイディアを使えば右図のような単純なアルゴリズムで
+		壁に沿って進むことはできる。
+		しかしこれではセンサが捕捉できない隙間に到達した時の挙動が不安定になる。
+
+		そこで過去のセンサ情報を保存するようにした。
+		数回に一度それらをチェックして十分に長い時間壁を検出できていないようなら停止し、
+		その場で左に大きく回転する。
 	\end{minipage}
 	\begin{minipage}{0.5\hsize}
 		\centering
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=8.5cm]{img/wall_01.pdf}
+			\includegraphics[width=6cm]{img/wall_01.pdf}
 			\caption{壁並走アルゴリズム案}
 		\end{figure}
 	\end{minipage}
 \end{figure}
 
-
 \section{結果}
+\begin{figure}[H]
+	\begin{minipage}{0.5\hsize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=4.5cm]{img/photo_wall.jpg}
+			\caption{隙間のある壁}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.5\hsize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=2cm]{img/sukima.png}
+			\caption{オドメトリ: 隙間のある壁}
+		\end{figure}
+	\end{minipage}
+\end{figure}
+\begin{figure}[H]
+	\begin{minipage}{0.5\hsize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=4.3cm]{img/photo_pillar.jpg}
+			\caption{柱の周回}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.5\hsize}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=2.5cm]{img/pillar.png}
+			\caption{オドメトリ: 柱の周回}
+		\end{figure}
+	\end{minipage}
+\end{figure}
+
+プログラムを書き換えることなく中間課題2「柱に沿って走行」の条件を満たした。
+
 \section{考察}
+センサ情報を1点しか使わないことにこだわったのは資料のヒントに逆らってのことであったが、
+ここで考えた過去のセンサ情報を利用する手法が、
+結果的に第6章の最終課題で同一物体の座標を配列に保存して利用するアイディアの元となった。
 
 \end{document}

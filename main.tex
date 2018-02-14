@@ -7,9 +7,27 @@
 \usepackage{tikz}
 \usepackage{hyperref}
 \usepackage{newtxtext, newtxmath}
+\usepackage{listings}
 \usepackage{comment}
 \usepackage[B]{thesis}	% 外観調整用
 \usepackage[B]{cover}	% 表紙用
+
+% listings設定
+\lstset{
+  basicstyle=\footnotesize\tt,
+  breakatwhitespace=false,
+  captionpos=b,
+  extendedchars=true,
+  frame=single,
+  numbers=left,
+  language=C,
+  keywordstyle=\bf,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=4
+}
+
 
 \include{privacy}	% 公開用
 
@@ -36,7 +54,23 @@
 \subfile{basic/basic.tex}
 \subfile{wall/wall.tex}
 \subfile{urg/urg.tex}
-%\subfile{pillar/pillar.tex}
 \subfile{guard/guard.tex}
-%\subfile{eval/eval.tex}
+
+\pagestyle{empty}
+\chapter{添付資料}
+\section{8の字走行}
+\lstinputlisting[caption=8の字走行]{src/eight.c}
+\newpage
+\section{前方1m以内に障害物を見つけたら停止}
+\lstinputlisting[caption=前方1m以内に障害物を見つけたら停止]{src/stop1m.c}
+\newpage
+\section{左側にある壁に沿って走らせる兼柱の周りを周回する}
+\lstinputlisting[caption=左側にある壁に沿って走らせる]{src/wall50cm.c}
+\newpage
+\section{座標変換したセンサデータをプロットする}
+\lstinputlisting[caption=座標変換したセンサデータをプロットする]{src/urgprint.c}
+\newpage
+\section{ポールを周回しながら人が近づくと威嚇する}
+\lstinputlisting[caption=最終課題5「警備員」]{src/guardian.c}
+
 \end{document}
